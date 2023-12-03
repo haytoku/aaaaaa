@@ -1,0 +1,84 @@
+#include <iostream>  
+using namespace std; 
+#include <Windows.h>   
+#include <cmath> 
+ 
+ 
+ 
+ 
+float zminenuymasuv(float arr[], int& size)  
+{ 
+    int index = 0;  
+ 
+    for (int i = 0; i < size; i++)  
+    { 
+        if (abs(arr[i]) > 1.0) 
+        {  
+            arr[index++] = arr[i]; 
+        } 
+    } 
+ 
+    while (index < size) { 
+        arr[index++] = 0.0; 
+    } 
+ 
+    size = index; 
+} 
+float sumamizhvedemnum(float arr[], int rozmir) 
+{ 
+    int pershevidemne = -1; 
+    int ostanevidemne = -1; 
+    float sum = 0; 
+ 
+    for (int i = 0; i < rozmir; i++) 
+    { 
+        if (arr[i] < 0) { 
+            if (pershevidemne == -1) 
+            { 
+                pershevidemne = i; 
+            } 
+            ostanevidemne = i; 
+        } 
+    } 
+ 
+    if (pershevidemne != -1 && ostanevidemne != -1 && pershevidemne != ostanevidemne) 
+    { 
+        for (int i = pershevidemne + 1; i < ostanevidemne; i++) 
+        { 
+            sum += arr[i]; 
+        } 
+    } 
+ 
+    return sum; 
+} 
+ 
+float sumachusel(float arr[], int size) 
+{ 
+    double suma = 0; 
+    for (int i = 1; i < size; i += 2) 
+    { 
+        suma += arr[i]; 
+    } 
+    return suma; 
+} 
+ 
+int main() 
+{ 
+ 
+    SetConsoleCP(1251); 
+    SetConsoleOutputCP(1251); 
+    float arr[] = { -5, 43, 8, 4.5, 10, -23 }; 
+    int rozmir = sizeof(arr) / sizeof(arr[0]); 
+ 
+ 
+    float resultat = sumamizhvedemnum(arr, rozmir); 
+    float resultat2 = sumachusel(arr, rozmir); 
+    float resultat3 = zminenuymasuv(arr, rozmir); 
+ 
+ 
+    cout << "Масив після стиснення=" << resultat3 << endl; 
+    cout << "Сума елементів з непарними номерами= " << resultat2 << endl; 
+    cout << "Сума елементів між першим і останнім від'ємними= " << resultat << endl; 
+ 
+    return 0; 
+}
